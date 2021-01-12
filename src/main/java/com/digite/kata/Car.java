@@ -2,8 +2,8 @@ package com.digite.kata;
 
 public class Car {
 
-    private String registrationNumber;
-    private String colour;
+    private final String registrationNumber;
+    private final String colour;
 
     public Car(String registrationNumber, String colour) {
         this.registrationNumber = registrationNumber;

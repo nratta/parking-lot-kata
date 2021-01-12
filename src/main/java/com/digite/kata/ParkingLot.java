@@ -7,8 +7,8 @@ import java.util.Map;
 public class ParkingLot {
 
     private final int parkingLotCapacity;
-    private int currentCapacity;
     Map<Integer, Car> slots;
+    private int currentCapacity;
 
     public ParkingLot(int intialCapacity) {
         parkingLotCapacity = intialCapacity;
