@@ -1,10 +1,7 @@
 package com.digite.kata;
 
-import javax.swing.*;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class ParkingLot {
