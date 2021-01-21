@@ -1,8 +1,11 @@
 package com.digite.kata;
 
+import javax.swing.*;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class ParkingLot {
 
@@ -26,13 +29,16 @@ public class ParkingLot {
     }
 
     public String getColourByRegistrationNumber(String registrationNumber) {
-        Iterator slotsIterator = slots.entrySet().iterator();
+        return slots.entrySet().stream().filter(entry -> registrationNumber.equals(entry.getValue().getRegistrationNumber()))
+                .map(val -> val.getValue().getColour())
+                .collect(Collectors.joining());
+    }
 
-        while (slotsIterator.hasNext()) {
-            Car car = slots.get(slotsIterator.next());
-            if (car.getRegistrationNumber().equals(registrationNumber))
-                return car.getColour();
-        }
-        return null;
+    public void leave(int i) {
+
+    }
+
+    public int getSlotNumberByRegistrationNumber(String s) {
+        return 0;
     }
 }
