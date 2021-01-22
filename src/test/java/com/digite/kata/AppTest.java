@@ -32,6 +32,36 @@ public class AppTest {
     public void testMapsParkedCardToASlot() {
         parkingLot.park("KA-01-HH-1234", "White");
         assertEquals("Gets colour number by Registration", "White",
-                     parkingLot.getColourByRegistrationNumber("KA-01-HH-1234"));
+                parkingLot.getColourByRegistrationNumber("KA-01-HH-1234"));
+    }
+
+    @Test
+    public void testSearchingCarNotParked() {
+        parkingLot.park("KA-01-HH-9876", "White");
+        assertEquals("Gets colour number by Registration", "",
+                parkingLot.getColourByRegistrationNumber("KA-01-HH-1234"));
+    }
+
+    @Test
+    public void testVacantSlot() {
+        parkingLot.park("KA-01-HH-1231", "White");
+        int slotNum = parkingLot.getSlotNumberByRegistrationNumber("KA-01-HH-1231");
+        parkingLot.leave(slotNum);
+        assertEquals(5, parkingLot.getStatus());
+    }
+
+
+    @Test
+    public void testCardParkedToNearestAvailableSlot() {
+        parkingLot.park("KA-01-HH-1231", "White");
+        parkingLot.park("KA-01-HH-1232", "Red");
+        parkingLot.park("KA-01-HH-1233", "Green");
+        parkingLot.park("KA-01-HH-1234", "Yellow");
+
+        parkingLot.leave(2);
+
+        parkingLot.park("KA-01-HH-1235", "Blue");
+        assertEquals(2, parkingLot.getSlotNumberByRegistrationNumber("KA-01-HH-1235"));
+
     }
 }
