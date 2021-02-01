@@ -69,7 +69,12 @@ public class ParkingLot {
         }
         return slotNo;
     }
-    public List<String> getRegistrationListByColor(String registrationNumber) {
-        return new ArrayList<>();
+    public List<String> getRegistrationListByColor(String color) {
+        List<String> registrationList = new ArrayList<>();
+        for(Map.Entry<Integer, Car> entry : slots.entrySet())
+        {    if(color.equalsIgnoreCase(entry.getValue().getColour()))
+            registrationList.add(entry.getValue().getRegistrationNumber());
+        }
+        return  registrationList;
     }
 }
