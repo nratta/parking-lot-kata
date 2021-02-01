@@ -64,4 +64,13 @@ public class AppTest {
         assertEquals(2, parkingLot.getSlotNumberByRegistrationNumber("KA-01-HH-1235"));
 
     }
+    @Test
+    public void testgetRegistrationListByColor() {
+        parkingLot.park("KA-01-HH-1231", "White");
+        parkingLot.park("KA-01-HH-1232", "White");
+        parkingLot.park("KA-01-HH-1233", "Green");
+        parkingLot.park("KA-01-HH-1234", "Yellow");
+        assertEquals(2, parkingLot.getRegistrationListByColor("White").size());
+    }
+
 }

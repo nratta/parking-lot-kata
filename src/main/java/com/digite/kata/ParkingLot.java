@@ -1,19 +1,23 @@
 package com.digite.kata;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import java.util.stream.Collectors;
 
 public class ParkingLot {
 
     private final int parkingLotCapacity;
-    Map<Integer, Car> slots;
+    ConcurrentMap<Integer, Car> slots;
     private int currentCapacity;
 
     public ParkingLot(int intialCapacity) {
         parkingLotCapacity = intialCapacity;
         currentCapacity = parkingLotCapacity;
-        slots = new HashMap<>();
+        slots = new ConcurrentHashMap<>();
     }
 
     public int getStatus() {
@@ -21,7 +25,23 @@ public class ParkingLot {
     }
 
     public void park(String registrationNumber, String colour) {
-        this.slots.put(1, new Car(registrationNumber, colour));
+        int slotNo = 0;
+        int allcatedSlotNo  = 0;
+        if(slots.size() == 0){
+            allcatedSlotNo = 1;
+        }
+       else {
+            for (Map.Entry<Integer, Car> entry : slots.entrySet()) {
+                ++slotNo;
+                if (!entry.getKey().equals(slotNo)) {
+                    allcatedSlotNo = slotNo;
+                    break;
+                }
+                else
+                    allcatedSlotNo = slotNo +1;
+            }
+        }
+        this.slots.put(allcatedSlotNo, new Car(registrationNumber, colour));
         this.currentCapacity -= 1;
     }
 
@@ -32,10 +52,24 @@ public class ParkingLot {
     }
 
     public void leave(int i) {
-
+        for (Map.Entry<Integer, Car> entry : slots.entrySet()) {
+            if(entry.getKey().equals(i) ) {
+                slots.remove(i);
+                break;
+            }
+        }
     }
 
     public int getSlotNumberByRegistrationNumber(String s) {
-        return 0;
+       int slotNo = 0;
+        for (Map.Entry<Integer, Car> entry : slots.entrySet()) {
+            if (entry.getValue().getRegistrationNumber().equals(s)) {
+                slotNo =  entry.getKey();
+            }
+        }
+        return slotNo;
+    }
+    public List<String> getRegistrationListByColor(String registrationNumber) {
+        return new ArrayList<>();
     }
 }

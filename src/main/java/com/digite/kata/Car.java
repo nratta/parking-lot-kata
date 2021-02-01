@@ -1,5 +1,7 @@
 package com.digite.kata;
 
+import java.util.List;
+
 public class Car {
 
     private final String registrationNumber;
